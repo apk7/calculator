@@ -7,6 +7,9 @@ from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QGridLayout, QLineEdit, QPushButton, QVBoxLayout
 
+# importing controller
+from controller import CalcController
+
 __version__ = '0.1'
 __author__ = 'Apurv Kulkarni'
 __reference__ = __credits__ = 'Leodanis Pozo Ramos'
@@ -110,8 +113,11 @@ def main():
     mycalc = QApplication(sys.argv)
 
     # Showing GUI
-    view = CalcUI()
-    view.show()
+    myView = CalcUI()
+    myView.show()
+
+    # Executing controller
+    CalcController(view=myView)
 
     # Execute the main loop
     sys.exit(mycalc.exec_())
