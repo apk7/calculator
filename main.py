@@ -1,7 +1,8 @@
 import sys
+from turtle import st
 
 # for view
-from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget
+from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget, QLabel
 
 # completing the view
 from PyQt5.QtCore import Qt
@@ -15,9 +16,6 @@ __version__ = '0.1'
 __author__ = 'Apurv Kulkarni'
 __reference__ = __credits__ = 'Leodanis Pozo Ramos'
 
-# -------------------
-# Creating skeleton
-# -------------------
 
 class CalcUI(QMainWindow):
     """Calculator's main window"""
@@ -25,19 +23,19 @@ class CalcUI(QMainWindow):
     def __init__(self):
         """Class Initializer"""
         super().__init__()                  # Initialization from super class
-        
+
         # Setting window properties
         self.setWindowTitle("MyCalc")   # Setting window title
-        self.setFixedSize(250,250)          # Set size 
+        self.setFixedSize(250, 250)          # Set size
         # Note to self: think abut shifting these settings to a settings class later
 
         # Set the general layout and central widget
         self.generalLayout = QVBoxLayout()     # 1st row- Display, 2nd row- buttons
-        self._centralWidget = QWidget(self) # Creating a QWidget object
-        
+        self._centralWidget = QWidget(self)  # Creating a QWidget object
+
         self._centralWidget.setLayout(self.generalLayout)
         self.setCentralWidget(self._centralWidget)
-             
+
         # Private functions for creating display and buttons
         self._createDisplay()
         self._createButtons()
@@ -55,7 +53,7 @@ class CalcUI(QMainWindow):
 
         # Add the display to the general layout
         self.generalLayout.addWidget(self.display)
-    
+
     def _createButtons(self):
         """Create buttons"""
 
@@ -65,29 +63,64 @@ class CalcUI(QMainWindow):
         # Creating button dictionary
         buttons = {
             # Numbers
-            '7':(0,0),'8':(0,1),'9':(0,2),
-            '4':(1,0),'5':(1,1),'6':(1,2),
-            '1':(2,0),'2':(2,1),'3':(2,2),
-            '0':(3,0),'00':(3,1),
-            
+            '7': (0, 0), '8': (0, 1), '9': (0, 2),
+            '4': (1, 0), '5': (1, 1), '6': (1, 2),
+            '1': (2, 0), '2': (2, 1), '3': (2, 2),
+            '0': (3, 0), '00': (3, 1),
+
             # Operations and other
-            '+':(0,3),
-            '-':(1,3),
-            '*':(2,3),
-            '/':(3,3),
-            '.':(3,2),
-            '=':(1,4),
-            'C':(0,4) # Clear screen
+            '+': (0, 3),
+            '-': (1, 3),
+            '*': (2, 3),
+            '/': (3, 3),
+            '.': (3, 2),
+            '=': (1, 4),
+            'C': (0, 4)  # Clear screen
         }
 
-        # Adding buttons to the grid layout
-        for btn,pos in buttons.items():
-            # Creating dicionary of buttons
-            self.buttons[btn] = QPushButton(btn)
-            self.buttons[btn].setFixedSize(40,40) # setting size
+        style_1 = "QPushButton {\n"
+        style_2 = "\
+            font-family:'sans-serif';\
+            font-size: 20px;\
+            background-color: 'gainsboro';\
+            border-style: ridge;\
+            border-radius: 10px;\
+            border-width: 3px;\
+                }\n"
 
+        style_active = "QPushButton:hover {\
+            background-color: darkgrey;\
+            color: slategray; \
+                }"
+
+        style_pressed = "QPushButton:pressed { \
+            background-color: black;\
+            color: cyan; \
+                }"
+
+        # Adding buttons to the grid layout
+        for btn, pos in buttons.items():
+            # Creating dicionary of buttons
+
+            # Creating different colors for different buttons
+            if btn in str(list(range(0, 10))) or btn in ['00', '.']:
+                style_color = "color: blue;"
+            elif btn in ["+", '-', "*", '/']:
+                style_color = "color: olive;"
+            elif btn == 'C':
+                style_color = "color: red;"
+            elif btn == '=':
+                style_color = "color: darkgreen;"
+            style_ = style_1 + style_color + style_2
+
+            self.buttons[btn] = QPushButton(btn)
+            # Setting size
+            self.buttons[btn].setFixedSize(40, 40)
+            # Setting style
+            self.buttons[btn].setStyleSheet(
+                style_ + style_active + style_pressed)
             # Adding buttons to butotns layout
-            buttonsLayout.addWidget(self.buttons[btn],pos[0],pos[1])
+            buttonsLayout.addWidget(self.buttons[btn], pos[0], pos[1])
 
         # Add buttons layout to the genral (main) layout
         self.generalLayout.addLayout(buttonsLayout)
@@ -107,6 +140,8 @@ class CalcUI(QMainWindow):
         self.setDisplayText('')
 
 # Client code
+
+
 def main():
     """Main function"""
 
@@ -123,8 +158,6 @@ def main():
     # Execute the main loop
     sys.exit(mycalc.exec_())
 
+
 if __name__ == "__main__":
     main()
-
-
-
