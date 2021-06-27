@@ -9,6 +9,7 @@ from PyQt5.QtWidgets import QGridLayout, QLineEdit, QPushButton, QVBoxLayout
 
 # importing controller
 from controller import CalcController
+from model import evaluateExpression
 
 __version__ = '0.1'
 __author__ = 'Apurv Kulkarni'
@@ -75,7 +76,7 @@ class CalcUI(QMainWindow):
             '*':(2,3),
             '/':(3,3),
             '.':(3,2),
-            '=':(3,3),
+            '=':(1,4),
             'C':(0,4) # Clear screen
         }
 
@@ -95,7 +96,7 @@ class CalcUI(QMainWindow):
         """Printing the text to display"""
         self.display.setText(text)
         self.display.setFocus()
-        print(help(self.display.setFocus()))
+        # print(help(self.display.setFocus()))
 
     def getDisplayText(self):
         """To get the display text"""
@@ -117,7 +118,7 @@ def main():
     myView.show()
 
     # Executing controller
-    CalcController(view=myView)
+    CalcController(view=myView, model=evaluateExpression)
 
     # Execute the main loop
     sys.exit(mycalc.exec_())
