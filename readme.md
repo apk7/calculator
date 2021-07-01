@@ -7,5 +7,5 @@
   * Install `PyQt5` library
   * Run `.\src\main.py`
   
-![calculator_UI](.\src\calculator_screenshot.png)
+![calculator_UI](./src/calculator_screenshot.png)
 
