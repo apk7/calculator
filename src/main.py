@@ -1,5 +1,4 @@
 import sys
-from turtle import st
 
 # for view
 from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget, QLabel
@@ -9,7 +8,9 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QGridLayout, QLineEdit, QPushButton, QVBoxLayout
 
 # importing controller
-from controller import CalcController
+from controller import CalcController 
+
+# importing model
 from model import evaluateExpression
 
 __version__ = '0.1'
